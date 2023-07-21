@@ -11,11 +11,10 @@
 int _printf(char *format, ...)
 {
 	va_list ap;
-	va_start(ap, format);
-	int len, i;
 	char c;
+	int i, len = _strlen(format);
 
-	len = _strlen(format);
+	va_start(ap, format);
 	for (i = 0; i < len; i++)
 	{
 		c = format[i];
