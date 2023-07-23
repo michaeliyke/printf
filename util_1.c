@@ -61,6 +61,13 @@ char *getspecend(char *start)
 	return (&start[i]);
 }
 
+/**
+ * getoffset - returns thr next print point skipping spec a region
+ * @cpy: pointer to the string
+ * @i: current position of index in loop
+ *
+ * Return: integer value of next print position
+ */
 int getoffset(char *cpy, int i)
 {
 	int j;
@@ -75,11 +82,11 @@ int getoffset(char *cpy, int i)
 }
 
 /**
- * getoffset - returns thr next print point skipping spec a region
+ * compoffset - perfoms most of the computation details of getoffset
  * @cpy: pointer to the string
  * @i: current position of index in loop
  *
- * Return: integer value of next print position
+ * Return: integer value indicating possible next print position
  */
 int compoffset(char *cpy, int i)
 {
