@@ -64,13 +64,13 @@ char *getspecend(char *start)
 int getoffset(char *cpy, int i)
 {
 	int j;
-	(void)j;
 
 	j = compoffset(cpy, i);
-	// if (cpy[j] == '%' && j - i > 1)
-	// { /* print chars between two % signs */
-	// 	i += 1;
-	// }
+	if (cpy[j] == '%' && j - i > 1)
+	{ /* print chars between two % signs */
+		if (!recognized(cpy[j - 1]))
+			return (i += 1); /* skip only if no match */
+	}
 	return (j);
 }
 
@@ -84,7 +84,15 @@ int getoffset(char *cpy, int i)
 int compoffset(char *cpy, int i)
 {
 	if (cpy[i] == '\0')
+	{
+		if (cpy[i - 1] != '%' && !recognized(cpy[i - 1]))
+		{
+			while (cpy[i - 1] != '%' && !recognized(cpy[i - 1]))
+				i--;
+			return (i);
+		}
 		return (0);
+	}
 	if (cpy[i] == '%' && cpy[i + 1] == '%')
 		return (i + 1);
 	if (cpy[i] == '%')
@@ -93,7 +101,7 @@ int compoffset(char *cpy, int i)
 		return (i);
 	if (recognized(cpy[i]))
 		return (cpy[i + 1] == '\0' ? 0 : i + 1);
-	return (getoffset(cpy, i + 1));
+	return (compoffset(cpy, i + 1));
 }
 
 /**

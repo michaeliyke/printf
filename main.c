@@ -20,14 +20,16 @@ int main(void)
 	};
 
 	struct pairs cases[] = {
+	    {"michael %d %s %fee", "michael   fee"},
 	    {"%ing%%%s", "ing%"},
-	    {"Js %ddo%gs %%%ss%%%ing%%%s", "Js dogs %s%ing%"},
-	    {"Js %ddo%gs% %%ss%%ing%s%", "Js %ddo%gs% %%ss%%ing%s%"},
-	    {"michael %d %s %f", "michael %d %s %f"},
-	    {"%d, %0hls %s", ""},
+
+	    {"Js %ddo%gs %%%ss%%%ing%%%s", "Js do %s%ing%"},
+	    {"%d, %0hls %s", ",  "},
+
+	    {"Js %ddo%gs% %%ss%%ing%s%", "Js do% %ss%ing%"},
 	};
 
-	int i, tests = 1;
+	int i, tests = 5;
 	struct pairs p;
 
 	for (i = 0; i < tests; i++)

@@ -11,7 +11,7 @@
 int _printf(char *format, ...)
 {
 	va_list ap;
-	int i, j, len = _strlen(format);
+	int i, j, writes = 0, len = _strlen(format);
 	char *cpy = malloc(_strlen(format));
 
 	va_start(ap, format);
@@ -27,7 +27,8 @@ int _printf(char *format, ...)
 		}
 
 		_putchar(cpy[i]);
+		writes++;
 	}
 	va_end(ap);
-	return (0);
+	return (writes);
 }
