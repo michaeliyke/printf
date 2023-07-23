@@ -11,14 +11,22 @@
 int _printf(char *format, ...)
 {
 	va_list ap;
-	char c;
-	int i, len = _strlen(format);
+	int i, j, len = _strlen(format);
+	char *cpy = malloc(_strlen(format));
 
 	va_start(ap, format);
+	_strcpy(cpy, format);
 	for (i = 0; i < len; i++)
 	{
-		c = format[i];
-		_putchar(c);
+		if (cpy[i] == '%')
+		{ /* move i to the next print point */
+			j = getoffset(cpy, i);
+			if (j == 0)
+				break;
+			i = j;
+		}
+
+		_putchar(cpy[i]);
 	}
 	va_end(ap);
 	return (0);
