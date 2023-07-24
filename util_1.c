@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "main.h"
 #include <stdarg.h>
+#include <stdio.h>
 
 /**
  * isfspec - checks if a region contains a valid format spec
@@ -8,7 +9,7 @@
  *
  * Return: 1 if true and 0 if not
  */
-int isfspec(char *c)
+int is_fspec(char *c)
 {
 	/**
 	 * eg: %kjq0j %d, %d075 %0hls %s
@@ -62,22 +63,44 @@ char *getspecend(char *start)
 }
 
 /**
+ * printspec - nothing now
+ */
+int print_spec(char *cpy, struct offset_info *f)
+{
+	char *s;
+	int i, pos, len = 0;
+
+	pos = f->pos; /* from print char inclusive to % exclusive */
+	while (cpy[pos--] != '%')
+		len++;
+
+	s = malloc(sizeof(*s) * len);
+	for (i = 0; i < len; i++)
+		s[i] = cpy[pos++];
+	s[i] = '\0';
+	_putstring(s);
+	free(s);
+	return (len);
+}
+
+/**
  * getoffset - returns thr next print point skipping spec a region
  * @cpy: pointer to the string
  * @i: current position of index in loop
  *
  * Return: integer value of next print position
  */
-int getoffset(char *cpy, int i)
+int get_offset(char *cpy, int i, struct offset_info *f)
 {
 	int j;
 
-	j = compoffset(cpy, i);
+	j = comp_offset(cpy, i, f);
 	if (cpy[j] == '%' && j - i > 1)
 	{ /* print chars between two % signs */
 		if (!recognized(cpy[j - 1]))
-			return (i += 1); /* skip only if no match */
+			j = (i += 1); /* skip only if no match */
 	}
+	/* printspec(j, i, cpy); */
 	return (j);
 }
 
@@ -85,30 +108,43 @@ int getoffset(char *cpy, int i)
  * compoffset - perfoms most of the computation details of getoffset
  * @cpy: pointer to the string
  * @i: current position of index in loop
+ * @f: struct to hold offset info
  *
  * Return: integer value indicating possible next print position
  */
-int compoffset(char *cpy, int i)
+int comp_offset(char *cpy, int i, struct offset_info *f)
 {
+	f->pos = i + 1; /* most common return value is i+1 not i */
 	if (cpy[i] == '\0')
 	{
+		f->end = 1;
 		if (cpy[i - 1] != '%' && !recognized(cpy[i - 1]))
 		{
 			while (cpy[i - 1] != '%' && !recognized(cpy[i - 1]))
 				i--;
 			return (i);
 		}
+		f->end = 0;
+		f->pos = i;
 		return (0);
 	}
 	if (cpy[i] == '%' && cpy[i + 1] == '%')
 		return (i + 1);
 	if (cpy[i] == '%')
-		return (compoffset(cpy, i + 1));
+		return (comp_offset(cpy, i + 1, f));
 	if (cpy[i] == ' ')
+	{
+		f->pos--;
 		return (i);
+	}
 	if (recognized(cpy[i]))
-		return (cpy[i + 1] == '\0' ? 0 : i + 1);
-	return (compoffset(cpy, i + 1));
+		if (cpy[i + 1] == '\0')
+		{
+			f->end = 1;
+			return (0);
+		}
+	return (i + 1);
+	return (comp_offset(cpy, i + 1, f));
 }
 
 /**
