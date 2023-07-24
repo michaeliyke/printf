@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../main.h"
 #include <stdio.h>
 
 /**
@@ -31,6 +31,8 @@ int main(void)
 
 	int i, tests = 5;
 	struct pairs p;
+	writeline("\nTEST: Print Chars Without The Format Specs.");
+	writeline("----------\n");
 
 	for (i = 0; i < tests; i++)
 	{
