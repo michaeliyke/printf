@@ -9,30 +9,30 @@
  *
  * Return: interger count of printed charaters
  */
-int _printf(char *format, ...)
+int _printf(char *fmt, ...)
 {
 	va_list ap;
-	int i, j, writes = 0, len = _strlen(format);
-	char *cpy = malloc(sizeof(*cpy) * _strlen(format));
-	struct offset_info f = {0, 0};
-	// struct spec sp = {};
+	va_start(ap, fmt);
+	int i = 0, writes = 0;
 
-	va_start(ap, format);
-	_strcpy(cpy, format);
-	for (i = 0; j = i, i < len; i++)
+	while (fmt[i] != '\0')
 	{
-		if (cpy[i] == '%')
-		{ /* move i to the next print point */
-			j = get_offset(cpy, i, &f);
-			print_spec(cpy, &f);
-			if (j == 0)
-				break;
+		if (fmt[i] != '%')
+			writes += _putchar(fmt[i]);
+		else
+		{
+			i++;
+			if (fmt[i] == '%')
+				writes += _putchar('%');
+			else if (fmt[i] == 'c')
+				writes += _putchar(va_arg(ap, int));
+			else if (fmt[i] == 's')
+			{
+				writes += _putstring(va_arg(ap, char *)) ? 1 : 0;
+			}
 		}
-
-		/* _putchar(cpy[i]); */
-		writes++;
+		i++;
 	}
-	free(cpy);
 	va_end(ap);
 	return (writes);
 }
