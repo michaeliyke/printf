@@ -1,6 +1,6 @@
 @ECHO OFF
 CLS
 
-compile 0_0-chars_no_specs.c ..\*.c && a
+compile 0_1-specs_no_chars.c ..\*.c && a
 
 
