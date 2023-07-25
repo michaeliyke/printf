@@ -5,7 +5,7 @@
 
 /**
  * _printf - the base printf entry function
- * @format: the format string
+ * @fmt: the format string
  *
  * Return: interger count of printed charaters
  */

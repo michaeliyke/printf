@@ -16,8 +16,8 @@ int _putchar(char c)
 }
 
 /**
- * writeline - write a string to the stdout followed by newline
- * @str - string to write
+ * _writeline - write a string to the stdout followed by newline
+ * @str: string to write
  *
  * Return: number of bytes written or -1 on error
  * On error, -1 is returned, and errno is set appropriately.
@@ -38,8 +38,8 @@ int _writeline(char *str)
 }
 
 /**
- * write_string - write a string to the stdout followed by newline
- * @str - string to write
+ * _writestring - write a string to the stdout followed by newline
+ * @str: string to write
  *
  * Return: number of bytes written or -1 on error
  * On error, -1 is returned, and errno is set appropriately.
@@ -57,7 +57,7 @@ int _writestring(char *str)
 
 /**
  * _str_rev - write a string to the stdout followed by newline
- * @str - pointer to string
+ * @str: pointer to string
  *
  * Return: pointer to reversed string
  */
@@ -82,12 +82,12 @@ char *_str_rev(char *str)
 
 /**
  * _putstring - write a string to the stdout followed by newline
- * @str - string to write
+ * @str: string to write
  *
  * Return: number of bytes written or -1 on error
  * On error, -1 is returned, and errno is set appropriately.
  */
 int _putstring(char *str)
 {
-	return _writestring(str);
+	return (_writestring(str));
 }
