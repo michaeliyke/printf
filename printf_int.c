@@ -80,10 +80,12 @@ int print_octal(unsigned int b)
 
 	if (xyz == NULL)
 		return (-1);
+	if (b == 0) /* 2147484671 */
+		xyz[0] = '0';
 	while (b > 0)
 	{
-		xyz[i] = '0' + b % 8;
+		xyz[i++] = '0' + b % 8;
 		b /= 8;
 	}
-	return (_writestring(xyz));
+	return (_writestring(_str_rev(xyz)));
 }

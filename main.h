@@ -12,4 +12,5 @@ char *_strcpy(char *dest, char *src);
 int print_int(long int n);
 int print_u_int(unsigned int n);
 int print_octal(unsigned int b);
+char *_str_rev(char *str);
 #endif

@@ -56,6 +56,31 @@ int _writestring(char *str)
 }
 
 /**
+ * _str_rev - write a string to the stdout followed by newline
+ * @str - pointer to string
+ *
+ * Return: pointer to reversed string
+ */
+char *_str_rev(char *str)
+{
+
+	unsigned int len = _strlen(str);
+	char t, *p1, *p2;
+
+	if (str == NULL) /* bad inputs include: NULL, "" */
+		return (NULL);
+	p1 = str;	    /* pointer to the first char in str */
+	p2 = str + len - 1; /* pointer to last char */
+	while (p2 > p1)
+	{
+		t = *p2;
+		*p2-- = *p1;
+		*p1++ = t;
+	}
+	return (str);
+}
+
+/**
  * _putstring - write a string to the stdout followed by newline
  * @str - string to write
  *
