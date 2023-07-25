@@ -12,9 +12,9 @@
 int _printf(char *fmt, ...)
 {
 	va_list ap;
-	va_start(ap, fmt);
 	int i = 0, writes = 0;
 
+	va_start(ap, fmt);
 	while (fmt[i] != '\0')
 	{
 		if (fmt[i] != '%')
@@ -27,8 +27,17 @@ int _printf(char *fmt, ...)
 			else if (fmt[i] == 'c')
 				writes += _putchar(va_arg(ap, int));
 			else if (fmt[i] == 's')
+				writes += _putstring(va_arg(ap, char *));
+			else if (fmt[i] == 'd')
+				writes += print_int(va_arg(ap, int));
+			else if (fmt[i] == 'i')
+				writes += print_int(va_arg(ap, int));
+			else if (fmt[i] == 'u')
+				writes += print_u_int(va_arg(ap, int));
+			else if (fmt[i] == 'o')
+				writes += print_octal(va_arg(ap, int));
+			else
 			{
-				writes += _putstring(va_arg(ap, char *)) ? 1 : 0;
 			}
 		}
 		i++;

@@ -31,18 +31,18 @@ int main(void)
 
 	int i, tests = 5;
 	struct pairs p;
-	writeline("\nTEST: Print Chars Without The Format Specs.");
-	writeline("----------\n");
+	_writeline("\nTEST: Print Chars Without The Format Specs.");
+	_writeline("----------\n");
 
 	for (i = 0; i < tests; i++)
 	{
 		p = cases[i];
-		_putstring("Input:\"");
-		_putstring(p.a);
-		_putstring("\"\nExpect:\"");
-		_putstring(p.b);
-		_putstring("\"\nOUTPUT:\"");
+		_writestring("Input:\"");
+		_writestring(p.a);
+		_writestring("\"\nExpect:\"");
+		_writestring(p.b);
+		_writestring("\"\nOUTPUT:\"");
 		_printf(p.a);
-		_putstring("\"\n----------\n");
+		_writestring("\"\n----------\n");
 	}
 }
