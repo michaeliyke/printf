@@ -15,4 +15,5 @@ int print_u_int(unsigned int n);
 int print_octal(unsigned int b);
 char *_str_rev(char *str);
 int print_hexadecimal(unsigned int b);
+int _printf_cont(char c, int field_width, va_list ap);
 #endif
