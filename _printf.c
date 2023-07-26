@@ -3,6 +3,8 @@
 #include "main.h"
 #include <stdio.h>
 
+int _printf_cont(char c, va_list ap);
+
 /**
  * _printf - the base printf entry function
  * @fmt: the format string
@@ -38,10 +40,24 @@ int _printf(char *fmt, ...)
 				writes += print_octal(va_arg(ap, int));
 			else
 			{
+				writes += _printf_cont(fmt[i], ap);
 			}
 		}
 		i++;
 	}
 	va_end(ap);
 	return (writes);
+}
+
+int _printf_cont(char c, va_list ap)
+{
+	if (c == 'x')
+		return (print_hexadecimal(va_arg(ap, int), 0));
+	else if (c == 'X')
+		return (print_hexadecimal(va_arg(ap, int), 1));
+	else if (c == 'p')
+		return (_writestring(va_arg(ap, char *)));
+	else
+	{
+	}
 }

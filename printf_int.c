@@ -76,7 +76,7 @@ int print_int(long int n)
 int print_octal(unsigned int b)
 {
 	char *xyz = malloc(sizeof(*xyz) * 40);
-	int i = 0;
+	int i = 0, bytes_written;
 
 	if (xyz == NULL)
 		return (-1);
@@ -87,7 +87,9 @@ int print_octal(unsigned int b)
 		xyz[i++] = '0' + b % 8;
 		b /= 8;
 	}
-	return (_writestring(_str_rev(xyz)));
+	free(xyz);
+	bytes_written = _writestring(_str_rev(xyz));
+	return (bytes_written);
 }
 
 /**
@@ -96,10 +98,10 @@ int print_octal(unsigned int b)
  *
  * Return: Number of bytes written or -1 if there's an error.
  */
-int print_hexadecimal(unsigned int b)
+int print_hexadecimal(unsigned int b, int CAP)
 {
 	char *xyz = malloc(sizeof(*xyz) * 40);
-	int i = 0;
+	int i = 0, bytes_written;
 
 	if (xyz == NULL)
 		return (-1);
@@ -111,8 +113,10 @@ int print_hexadecimal(unsigned int b)
 		if (remainder < 10)
 			xyz[i++] = '0' + remainder;
 		else
-			xyz[i++] = 'a' + remainder - 10;
+			xyz[i++] = (CAP ? 'A' : 'a') + (remainder - 10);
 		b /= 16;
 	}
-	return (_writestring(_str_rev(xyz)));
+	bytes_written = _writestring(_str_rev(xyz));
+	free(xyz);
+	return (bytes_written);
 }

@@ -14,5 +14,5 @@ int print_int(long int n);
 int print_u_int(unsigned int n);
 int print_octal(unsigned int b);
 char *_str_rev(char *str);
-int print_hexadecimal(unsigned int b);
+int print_hexadecimal(unsigned int b, int CAP);
 #endif
