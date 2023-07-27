@@ -56,8 +56,9 @@ int _printf_cont(char c, va_list ap)
 	else if (c == 'X')
 		return (print_hexadecimal(va_arg(ap, int), 1));
 	else if (c == 'p')
-		return (_writestring(va_arg(ap, char *)));
+		return (print_pointer(va_arg(ap, char *)));
 	else
 	{
 	}
 }
+// void print_pointer(void *ptr)

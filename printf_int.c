@@ -120,3 +120,46 @@ int print_hexadecimal(unsigned int b, int CAP)
 	free(xyz);
 	return (bytes_written);
 }
+
+/**
+ * print_pointer - prints a pointer value in hexadecimal
+ * @ptr: void pointer
+ *
+ * Return: void
+ * Convert the pointer value to a hexadecimal string using bitwise
+ * operations and the lookup table
+ */
+int print_pointer(void *ptr)
+{
+	char table[] = "0123456789abcdef", digit;
+	int index, i, j, padding;
+	unsigned long val = (unsigned long)ptr;
+	char hex_str[18], truncated[18] = {'0', 'x'};
+
+	for (i = 0; i < 16; i++)
+	{
+		index = val & 0xf;
+		digit = table[index];
+		hex_str[17 - i] = digit;
+		val >>= 4;
+	}
+
+	j = 2;
+	padding = 1;
+	while (j < 18)
+	{
+		if (padding && hex_str[j] == '0')
+		{
+			j++;
+			continue;
+		}
+		else if (padding)
+		{
+			padding = 0;
+		}
+		truncated[j] = hex_str[j];
+		j++;
+	}
+	truncated[j] = '\0';
+	return (write(1, truncated, j));
+}
