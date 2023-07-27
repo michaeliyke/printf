@@ -17,6 +17,8 @@ char *_str_rev(char *str);
 int print_hexadecimal(unsigned int b);
 int _printf_cont(char c, va_list ap);
 int is_digit(char c);
+int get_width(const char *format, int *i, va_list list);
+int get_precision(const char *format, int *i, va_list list);
 
 /* width handler */
 int handle_write_char(char c, char buffer[],
