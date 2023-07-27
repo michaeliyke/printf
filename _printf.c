@@ -49,6 +49,13 @@ int _printf(char *fmt, ...)
 	return (writes);
 }
 
+/**
+ * _printf_cont - continue the conditional branching of _printf
+ * @c: the char being tested
+ * @ap: va_list variable used for getting the next argument
+ *
+ * Return: number of chars written
+ */
 int _printf_cont(char c, va_list ap)
 {
 	if (c == 'x')
@@ -57,8 +64,4 @@ int _printf_cont(char c, va_list ap)
 		return (print_hexadecimal(va_arg(ap, int), 1));
 	else if (c == 'p')
 		return (print_pointer(va_arg(ap, char *)));
-	else
-	{
-	}
 }
-// void print_pointer(void *ptr)

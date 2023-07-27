@@ -11,8 +11,7 @@ int print_u_int(unsigned int n)
 	char buff[10], temp;
 	int i = 0, j;
 
-	do
-	{
+	do {
 		buff[i++] = '0' + n % 10;
 		n /= 10;
 	} while (n > 0);
@@ -46,8 +45,7 @@ int print_int(long int n)
 		sign = -1;
 		n = -n;
 	}
-	do
-	{
+	do {
 		buff[i++] = '0' + n % 10;
 		n /= 10;
 	} while (n > 0);
@@ -93,15 +91,16 @@ int print_octal(unsigned int b)
 }
 
 /**
- * print_hexadecimal - Converts an integer from base 10 to base 16 and prints it.
+ * print_hexadecimal - Convert an int in base 10 to base 16 and print.
  * @b: A number in base 10.
+ * @CAP: whether output is capitalized or not
  *
  * Return: Number of bytes written or -1 if there's an error.
  */
 int print_hexadecimal(unsigned int b, int CAP)
 {
 	char *xyz = malloc(sizeof(*xyz) * 40);
-	int i = 0, bytes_written;
+	int i = 0, bytes_written, remainder;
 
 	if (xyz == NULL)
 		return (-1);
@@ -109,7 +108,7 @@ int print_hexadecimal(unsigned int b, int CAP)
 		xyz[0] = '0';
 	while (b > 0)
 	{
-		int remainder = b % 16;
+		remainder = b % 16;
 		if (remainder < 10)
 			xyz[i++] = '0' + remainder;
 		else
