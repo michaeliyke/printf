@@ -20,27 +20,27 @@ int _printf(char *fmt, ...)
 	while (fmt[i] != '\0')
 	{
 		if (fmt[i] != '%')
-			writes += _putchar(fmt[i]);
+			writes += _abs(_putchar(fmt[i]));
 		else
 		{
 			i++;
 			if (fmt[i] == '%')
-				writes += _putchar('%');
+				writes += _abs(_putchar('%'));
 			else if (fmt[i] == 'c')
-				writes += _putchar(va_arg(ap, int));
+				writes += _abs(_putchar(va_arg(ap, int)));
 			else if (fmt[i] == 's')
-				writes += _putstring(va_arg(ap, char *));
+				writes += _abs(_putstring(va_arg(ap, char *)));
 			else if (fmt[i] == 'd')
-				writes += print_int(va_arg(ap, int));
+				writes += _abs(print_int(va_arg(ap, int)));
 			else if (fmt[i] == 'i')
-				writes += print_int(va_arg(ap, int));
+				writes += _abs(print_int(va_arg(ap, int)));
 			else if (fmt[i] == 'u')
-				writes += print_u_int(va_arg(ap, int));
+				writes += _abs(print_u_int(va_arg(ap, int)));
 			else if (fmt[i] == 'o')
-				writes += print_octal(va_arg(ap, int));
+				writes += _abs(print_octal(va_arg(ap, int)));
 			else
 			{
-				writes += _printf_cont(fmt[i], ap);
+				writes += _abs(_printf_cont(fmt[i], ap));
 			}
 		}
 		i++;
@@ -64,4 +64,15 @@ int _printf_cont(char c, va_list ap)
 		return (print_hexadecimal(va_arg(ap, int), 1));
 	else if (c == 'p')
 		return (print_pointer(va_arg(ap, char *)));
+}
+
+/**
+ * _abs - get the number of written bytes
+ * @written: number of bytes written or -1
+ *
+ * Return: 0 or number of bytes written
+ */
+int _abs(int written)
+{
+	return (written > 0 ? written : 0);
 }

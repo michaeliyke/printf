@@ -85,8 +85,8 @@ int print_octal(unsigned int b)
 		xyz[i++] = '0' + b % 8;
 		b /= 8;
 	}
-	free(xyz);
 	bytes_written = _writestring(_str_rev(xyz));
+	free(xyz);
 	return (bytes_written);
 }
 

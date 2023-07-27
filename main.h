@@ -20,6 +20,7 @@ int _printf_cont(char c, va_list ap);
 int is_digit(char c);
 int get_width(const char *format, int *i, va_list list);
 int get_precision(const char *format, int *i, va_list list);
+int _abs(int written);
 
 /* width handler */
 int handle_write_char(char c, char buffer[],
