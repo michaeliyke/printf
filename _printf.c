@@ -64,6 +64,15 @@ int _printf_cont(char c, va_list ap)
 		return (print_hexadecimal(va_arg(ap, int), 1));
 	else if (c == 'p')
 		return (print_pointer(va_arg(ap, char *)));
+	else
+	{
+		/* No match after a % */
+		if (_putchar('%') == 1 && _putchar(c) == 1)
+			return (2);
+		else
+			return (-1);
+	}
+	return (0);
 }
 
 /**
