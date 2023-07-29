@@ -8,7 +8,7 @@ int _printf_cont(char c, va_list ap);
 /**
  * _printf - the base printf entry function
  * @fmt: the format string
- *60-14
+ *
  * Return: interger count of printed charaters
  */
 int _printf(char *fmt, ...)
@@ -51,7 +51,7 @@ int _printf(char *fmt, ...)
 	return (w);
 }
 
-/**52-14
+/**
  * _printf_cont - continue the conditional branching of _printf
  * @c: the char being tested
  * @ap: va_list variable used for getting the next argument

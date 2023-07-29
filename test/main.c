@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "../main.h"
 
+void others(void);
+
 /**
  * main - Entry point
  *
@@ -13,10 +15,8 @@ int main(void)
 	int len2;
 	unsigned int ui;
 	void *addr;
-	// ui = (unsigned int)INT_MAX + 1024;
-	// addr = (void *)0x7ffe637541f0;
-	/* addr = &len; */
 
+	ui = (unsigned int)INT_MAX + 1024;
 	len = _printf("%");
 	len2 = -1; /* That's what below result gives */
 	/* len2 = printf("%"); */
@@ -40,6 +40,27 @@ int main(void)
 	printf("Character:[%c]R\n", 'H');
 	_printf("String:[%s]\n", "I am a string !");
 	printf("String:[%s]R\n", "I am a string !");
+
+	others();
+	return (0);
+}
+
+/**
+ * others - other tests
+ *
+ * Return: void
+ */
+void others(void)
+{
+	int len;
+	int len2;
+	unsigned int ui;
+	void *addr;
+
+	_printf("Address:[%p]\n", addr);
+	printf("Address:[%p]R\n", addr);
+	addr = (void *)0x7ffe637541f0;
+	/* addr = &len; */
 	_printf("Address:[%p]\n", addr);
 	printf("Address:[%p]R\n", addr);
 	len = _printf("Percent:[%%]\n");
@@ -48,5 +69,4 @@ int main(void)
 	printf("Len:[%d]R\n", len2);
 	_printf("Unknown:[%r]\n");
 	printf("Unknown:[%%r]R\n"); /* An extra % added for error sake */
-	return (0);
 }
