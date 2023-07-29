@@ -8,48 +8,50 @@ int _printf_cont(char c, va_list ap);
 /**
  * _printf - the base printf entry function
  * @fmt: the format string
- *
+ *60-14
  * Return: interger count of printed charaters
  */
 int _printf(char *fmt, ...)
 {
-	va_list ap;
-	int i = 0, writes = 0;
 
+	va_list ap;
+	int i, w = 0, state = 0, breaker;
+	char c;
+
+	if (fmt == NULL)
+		return (0);
 	va_start(ap, fmt);
-	while (fmt[i] != '\0')
+	for (i = 0; c = fmt[i], c != '\0'; i++)
 	{
-		if (fmt[i] != '%')
-			writes += _abs(_putchar(fmt[i]));
-		else
+		if (w == -1) /* if last write goes bad return */
+			return (w);
+		state = state == 0 && c == '%';
+		if (state == 1)
 		{
-			i++;
-			if (fmt[i] == '%')
-				writes += _abs(_putchar('%'));
-			else if (fmt[i] == 'c')
-				writes += _abs(_putchar(va_arg(ap, int)));
-			else if (fmt[i] == 's')
-				writes += _abs(_putstring(va_arg(ap, char *)));
-			else if (fmt[i] == 'd')
-				writes += _abs(print_int(va_arg(ap, int)));
-			else if (fmt[i] == 'i')
-				writes += _abs(print_int(va_arg(ap, int)));
-			else if (fmt[i] == 'u')
-				writes += _abs(print_u_int(va_arg(ap, int)));
-			else if (fmt[i] == 'o')
-				writes += _abs(print_octal(va_arg(ap, int)));
-			else
+			state = 0;
+			c = fmt[++i];
+			if (c == '\0') /* % at pos \0 means no formatter */
+				return (-1);
+			switch (c)
 			{
-				writes += _abs(_printf_cont(fmt[i], ap));
+			case '%':
+				_abs(_putchar('%'), &w);
+				break;
+			case 'd':
+				_abs(print_int(va_arg(ap, int)), &w);
+				break;
+			default:
+				/* other/unknown format */
+				_abs(_printf_cont(c, ap), &w);
 			}
+			continue;
 		}
-		i++;
+		_abs(_putchar(c), &w);
 	}
-	va_end(ap);
-	return (writes);
+	return (w);
 }
 
-/**
+/**52-14
  * _printf_cont - continue the conditional branching of _printf
  * @c: the char being tested
  * @ap: va_list variable used for getting the next argument
@@ -58,27 +60,41 @@ int _printf(char *fmt, ...)
  */
 int _printf_cont(char c, va_list ap)
 {
-	if (c == 'x')
+	switch (c)
+	{
+	case 's':
+		return (_putstring(va_arg(ap, char *)));
+	case 'c':
+		return (_putchar(va_arg(ap, int)));
+	case 'i':
+		return (print_int(va_arg(ap, int)));
+	case 'x':
 		return (print_hexadecimal(va_arg(ap, int), 0));
-	else if (c == 'X')
+	case 'u':
+		return (print_u_int(va_arg(ap, int)));
+	case 'o':
+		return (print_octal(va_arg(ap, int)));
+	case 'X':
 		return (print_hexadecimal(va_arg(ap, int), 1));
-	else if (c == 'p')
+	case 'p':
 		return (print_pointer(va_arg(ap, char *)));
-	/* No match after a % */
-	if (_putchar('%') == 1 && _putchar(c) == 1)
-		return (2);
-	else
-		return (-1);
-	return (0);
+	default:
+		/* Return error because % was provided without any format */
+		return (_putchar('%') && _putchar(c) ? 2 : -1);
+	}
+	return (-1);
 }
 
 /**
  * _abs - get the number of written bytes
  * @written: number of bytes written or -1
- *
- * Return: 0 or number of bytes written
+ *@w: pointer the total written
+ * Return: -1 for error or number of bytes written
  */
-int _abs(int written)
+int _abs(int written, int *w)
 {
-	return (written > 0 ? written : 0);
+	if (written < 0)
+		return (-1);
+	*w += written;
+	return (*w);
 }

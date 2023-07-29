@@ -11,7 +11,8 @@ int print_u_int(unsigned int n)
 	char buff[10], temp;
 	int i = 0, j;
 
-	do {
+	do
+	{
 		buff[i++] = '0' + n % 10;
 		n /= 10;
 	} while (n > 0);
@@ -45,7 +46,8 @@ int print_int(long int n)
 		sign = -1;
 		n = -n;
 	}
-	do {
+	do
+	{
 		buff[i++] = '0' + n % 10;
 		n /= 10;
 	} while (n > 0);
@@ -80,6 +82,8 @@ int print_pointer(void *ptr)
 	unsigned long val = (unsigned long)ptr;
 	char hex_str[18], truncated[18] = {'0', 'x'};
 
+	if (ptr == NULL)
+		return (write(1, "(nil)", 6));
 	for (i = 0; i < 16; i++)
 	{
 		index = val & 0xf;
