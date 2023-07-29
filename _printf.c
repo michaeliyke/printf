@@ -15,7 +15,7 @@ int _printf(char *fmt, ...)
 {
 
 	va_list ap;
-	int i, w = 0, state = 0, breaker;
+	int i, w = 0, state = 0;
 	char c;
 
 	if (fmt == NULL)

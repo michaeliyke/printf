@@ -15,6 +15,8 @@ int main(void)
 	int len2;
 	unsigned int ui;
 	void *addr;
+	(void)addr;
+	(void)ui;
 
 	ui = (unsigned int)INT_MAX + 1024;
 	len = _printf("%");
@@ -40,7 +42,6 @@ int main(void)
 	printf("Character:[%c]R\n", 'H');
 	_printf("String:[%s]\n", "I am a string !");
 	printf("String:[%s]R\n", "I am a string !");
-
 	others();
 	return (0);
 }
@@ -54,8 +55,7 @@ void others(void)
 {
 	int len;
 	int len2;
-	unsigned int ui;
-	void *addr;
+	void *addr = (void *)NULL;
 
 	_printf("Address:[%p]\n", addr);
 	printf("Address:[%p]R\n", addr);
