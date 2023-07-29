@@ -11,8 +11,7 @@ int print_u_int(unsigned int n)
 	char buff[10], temp;
 	int i = 0, j;
 
-	do
-	{
+	do {
 		buff[i++] = '0' + n % 10;
 		n /= 10;
 	} while (n > 0);
@@ -46,8 +45,7 @@ int print_int(long int n)
 		sign = -1;
 		n = -n;
 	}
-	do
-	{
+	do {
 		buff[i++] = '0' + n % 10;
 		n /= 10;
 	} while (n > 0);
