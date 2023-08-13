@@ -69,6 +69,7 @@ void others(void)
 	printf("Len:[%d]R\n", len2);
 	_printf("Unknown:[%r]\n");
 	printf("Unknown:[%%r]R\n"); /* An extra % added for error sake */
-	_printf("Complete the sentence: You %s nothing, Jon Snow.\n", (char *)0);
-	printf("Complete the sentence: You %s nothing, Jon Snow.\n", (char *)0);
+	_printf(
+	    "Complete the sentence: You %s nothing, Jon Snow.\n", (char *)0);
+	_printf(NULL);
 }

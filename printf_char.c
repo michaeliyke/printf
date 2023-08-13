@@ -89,5 +89,7 @@ char *_str_rev(char *str)
  */
 int _putstring(char *str)
 {
+	if (str == NULL)
+		return (write(1, "(null)", 7));
 	return (_writestring(str));
 }
