@@ -1,8 +1,8 @@
 #include <stdlib.h>
 
 /**
- * strlen_ - returns length of a string
- * string - input string whose length is needed
+ * _strlen - returns length of a string
+ * @string: input string whose length is needed
  *
  * Return: length of string
  */

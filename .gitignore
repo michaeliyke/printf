@@ -1,6 +1,8 @@
 main.c
 *.exe
 *.out
+t.c
 .vscode/
 redundant/
 redundant.*
+!test/
